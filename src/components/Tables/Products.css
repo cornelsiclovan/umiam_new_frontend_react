@@ -1,18 +1,16 @@
 .products {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     padding: 0;
     margin: 0;
     list-style-type: none;
-    
   }
   
   .products li {
     flex: 0 1 29rem;
-    height: 30rem;
+    height: 47rem;
     padding: 1rem;
   }
   
@@ -24,8 +22,8 @@
   }
   
   .product img{
-    max-width: 15rem;
-    max-height: 15rem;
+    max-width: 37rem;
+    max-height: 37rem;
   }
   
   .product-price {

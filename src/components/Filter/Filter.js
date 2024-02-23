@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { sortProducts, filterProducts, filterTypes, filterProductsByCategory } from "../../actions/productActions";
-import { getTypes, getCategories } from "../../actions/ownerActions";
+
 import "./Filter.css";
 
 class Filter extends Component {
@@ -45,7 +45,7 @@ class Filter extends Component {
               <option value="">All</option>
               {this.props.categories &&
                 this.props.categories.map((category) => (
-                  <option value={category.id}>{category.title}</option>
+                  <option key={category.id} value={category.id}>{category.title}</option>
                 ))}
               {/* <option value="2">pizza</option>
                             <option value="4">hamburger</option> */}
@@ -68,7 +68,7 @@ class Filter extends Component {
               <option value="">All</option>
               {this.props.filteredTypes &&
                 this.props.filteredTypes.map((type) => (
-                  <option value={type.id}>{type.title}</option>
+                  <option key={type.id} value={type.id}>{type.title}</option>
                 ))}
               {/* <option value="2">pizza</option>
                                     <option value="4">hamburger</option> */}

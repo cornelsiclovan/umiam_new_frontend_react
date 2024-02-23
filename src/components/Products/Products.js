@@ -4,11 +4,13 @@ import Fade from "react-reveal/Fade";
 import Modal from "react-modal";
 import { Zoom } from "react-reveal";
 import { fetchProducts } from "../../actions/productActions";
-import { addToCart } from "../../actions/cartActions";
+import { addToCart, getCart } from "../../actions/cartActions";
 import { connect } from "react-redux";
-import {getCategories, getTypes} from "../../actions/ownerActions";
+import { getCategories, getTypes } from "../../actions/ownerActions";
 
-import "./Products.css";
+import './Products.css';
+import { Link } from "react-router-dom";
+
 
 class Products extends Component {
   constructor(props) {
@@ -20,13 +22,14 @@ class Products extends Component {
 
   componentDidMount() {
     const placeId = window.location.href.split("/")[4];
-   
+
     this.props.fetchProducts(placeId);
     this.props.getCategories(this.props.token);
-    this.props.getTypes(this.props.token, placeId)
+    this.props.getTypes(this.props.token, placeId);
   }
 
   openModal = (product) => {
+    console.log(product);
     this.setState({ product });
   };
 
@@ -36,35 +39,92 @@ class Products extends Component {
 
   render() {
     const { product } = this.state;
+
+    console.log(window.location.href.split("/")[5]);
     return (
-      <div>
+      <div style={{ display: "flex", flexDirection: "row"}}>
+        <ul>
+          <li>
+            <Link
+              style={{ fontSize: "20px" }}
+              to="../places/1/1"
+              onClick={() => {
+                window.location.href = "../1/1";
+              }}
+            >
+              Masa 1
+            </Link>
+          </li>
+          <li>
+            <Link
+              style={{ fontSize: "20px" }}
+              to="../places/1/2"
+              onClick={() => {
+                window.location.href = "../1/2";
+              }}
+            >
+              Masa 2
+            </Link>
+          </li>
+          <li>
+            <Link
+              style={{ fontSize: "20px" }}
+              to="../places/1/4"
+              onClick={() => {
+                window.location.href = "../1/3";
+              }}
+            >
+              Masa 3
+            </Link>
+          </li>
+          <li>
+            <Link
+              style={{ fontSize: "20px" }}
+              to="../places/1/3"
+              onClick={() => {
+                window.location.href = "../1/4";
+              }}
+            >
+              Masa 4
+            </Link>
+          </li>
+        </ul>
         <Fade bottom cascade>
           {!this.props.products ? (
             <div>Loading...</div>
           ) : (
-            <ul className="products">
+            <ul className="products" >
               {this.props.products.map((product) => (
-                <li key={product.id}>
+                <li key={product.id} style={{height: "20rem", maxWidth: "15rem"}}>
                   <div className="product">
                     <a
                       href={"#" + product.id}
                       onClick={() => this.openModal(product)}
+                      style={{textDecoration: "none"}}
                     >
-                      <img src={product.imageUrl} alt={product.title}></img>
-                      <p>{product.title}</p>
+                      <img
+                        style={{maxHeight: "10rem", maxHeight: "10rem"}}
+                        src={`http://localhost:8080/${product.imageUrl}`}
+                        alt={product.title}
+                      />  
+                      <p><b>{product.title}</b>   {product.price && formatCurrency(+product.price)}</p>
                     </a>
                     <div className="product-price">
-                      <div>{formatCurrency(product.price)}</div>
+                      
                       <button
                         onClick={() =>
-                          this.props.addToCart(product, this.props.token)
+                          this.props.addToCart(
+                            product,
+                            this.props.token,
+                            window.location.href.split("/")[5]
+                          )
                         }
-                        className="button button-primary"
+                        className="button button-primary" 
                       >
                         Add To Cart
                       </button>
                     </div>
-                  </div>
+                  </div>  
                 </li>
               ))}
             </ul>
@@ -77,27 +137,26 @@ class Products extends Component {
                 x
               </button>
               <div className="product-details">
-                <img src={product.image} alt={product.title}></img>
+                <img
+                  src={`http://localhost:8080/${product.imageUrl}`}
+                  alt={product.title}
+                ></img>
                 <div className="product-details-description">
                   <p>
                     <strong>{product.title}</strong>
                   </p>
                   <p>{product.description}</p>
-                  <p>
-                    Available Sizez:{" "}
-                    {product.availableSizes.map((x) => (
-                      <span>
-                        {" "}
-                        <button className="button">{x}</button>
-                      </span>
-                    ))}
-                  </p>
+
                   <div className="product-price">
                     <div>{formatCurrency(product.price)}</div>
                     <button
                       className="button button-primary"
                       onClick={() => {
-                        this.props.addToCart(product, this.props.token);
+                        this.props.addToCart(
+                          product,
+                          this.props.token,
+                          window.location.href.split("/")[5]
+                        );
                         this.closeModal();
                       }}
                     >
@@ -123,6 +182,7 @@ export default connect(
     fetchProducts,
     addToCart,
     getCategories,
-    getTypes
+    getTypes,
+    getCart,
   }
 )(Products);

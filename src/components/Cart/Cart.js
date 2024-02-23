@@ -5,10 +5,13 @@ import { connect } from "react-redux";
 import { removeFromCart, getCart } from "../../actions/cartActions";
 import { createOrder, clearOrder } from "../../actions/orderActions";
 import { clearCart } from "../../actions/cartActions";
+import { getPlace } from "../../actions/ownerActions";
+
 import Modal from 'react-modal'
 
 import './Cart.css';
 import { Zoom } from "react-reveal";
+import Print from "./Print";
 
 class Cart extends Component {
   constructor(props) {
@@ -17,12 +20,15 @@ class Cart extends Component {
       name: "",
       email: "",
       address: "",
+      tableNumber: "",
       showCheckout: false,
     };
   }
 
   componentDidMount = () => {
-    this.props.getCart(this.props.token);
+    this.props.getCart(this.props.token, window.location.href.split("/")[5]);
+    const placeId = window.location.href.split("/")[4];
+    this.props.getPlace(this.props.token, placeId);
   }
 
   handleInput = (e) => {
@@ -32,14 +38,15 @@ class Cart extends Component {
   createOrder = (e) => {
     e.preventDefault();
     const order = {
-      total: this.props.cartItems.reduce((a, c) => a + c.price * c.cartItem.quantity, 0)
+      total: this.props.cartItems.reduce((a, c) => a + c.price * c.cartItem.quantity, 0),
+      tableNumber: this.state.tableNumber
       // name: this.state.name,
       // email: this.state.email,
       // address: this.state.address,
       // cartItems: this.props.cartItems,
     };
 
-    this.props.createOrder(order, this.props.token);
+    this.props.createOrder(order, this.props.token, window.location.href.split("/")[5]);
   };
 
   closeModal = () => {
@@ -49,11 +56,24 @@ class Cart extends Component {
     
   }
 
-  render() {
-    const { cartItems, order } = this.props;
 
+  render() {
+    const { cartItems, order, place } = this.props;
+
+    let tableNumberArray = [];
+
+    console.log("test");
+
+    if(place && place.tableNumber > 0) {
+      for(let i=0; i < place.tableNumber; i++) {
+        tableNumberArray.push(i+1);
+      }
+    }
+  
     return (
+      
       <div>
+      
         {cartItems.length === 0 ? (
           <div className="cart cart-header">Cart is empty</div>
         ) : (        
@@ -105,6 +125,7 @@ class Cart extends Component {
                         </div>
                       </li>
                     </ul>
+                    <Print order={order} cartItems={cartItems}/>
                   </div>
                 </Zoom>
               </Modal> 
@@ -115,9 +136,9 @@ class Cart extends Component {
             <Fade left cascade>
               <ul className="cart-items">
                 {cartItems.map((item) => (
-                  <li key={item.id}>
+                  <li key={item.cartItem.id}>
                     <div>
-                      <img src={item.imageUrl} alt={item.title}></img>
+                      <img src={`http://localhost:8080/${item.imageUrl}`} alt={item.title}></img>
                     </div>
                     <div>{item.title}</div>
                     <div className="right">
@@ -125,7 +146,7 @@ class Cart extends Component {
                         {formatCurrency(item.price)} x {item.cartItem.quantity}{" "}
                         <button
                           className="button"
-                          onClick={() => this.props.removeFromCart(item, this.props.token)}
+                          onClick={() => this.props.removeFromCart(item, this.props.token, window.location.href.split("/")[5])}
                         >
                           Remove
                         </button>
@@ -162,7 +183,7 @@ class Cart extends Component {
                   <div className="cart">
                     <form onSubmit={this.createOrder}>
                       <ul className="form-container">
-                        <li>
+                        {/* <li>
                           <label>Email</label>
                           <input
                             name="email"
@@ -188,6 +209,18 @@ class Cart extends Component {
                             required
                             onChange={this.handleInput}
                           />
+                        </li> */}
+                         <li>
+                          <label>Table number</label>
+                            <div style={{display: "flex"}}>
+                              <br/>
+                              {tableNumberArray && tableNumberArray.map(elem =>  
+                                <div style={{display: "flex", flexDirection: "column"}}>
+                                  <label style={{width: "30px", marginLeft: "10px"}}>{elem}</label>
+                                  <input onChange={this.handleInput} style={{width: "30px",transform: "scale(2)"}} type="checkbox" id="tableNumber" name="tableNumber" value={elem}/>
+                                </div>
+                              )}
+                            </div>
                         </li>
                         <li>
                           <button
@@ -214,13 +247,15 @@ export default connect(
   (state) => ({
     cartItems: state.cart.cartItems,
     order: state.order.order,
-    token: state.auth.token
+    token: state.auth.token,
+    place: state.places.place,
   }),
   {
     removeFromCart,
     createOrder,
     clearOrder,
     getCart,
-    clearCart
+    clearCart,
+    getPlace
   }
 )(Cart);

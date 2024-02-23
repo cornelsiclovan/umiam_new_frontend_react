@@ -4,6 +4,12 @@ import {
   FILTER_TYPES_BY_CATEGORY,
   FILTER_PRODUCTS_BY_CATEGORY,
   ORDER_PRODUCTS_BY_PRICE,
+  ADD_PRODUCT_REQUEST,
+  EDIT_PRODUCT_REQUEST,
+  ADD_PRODUCT,
+  EDIT_PRODUCT,
+  DELETE_PRODUCT_REQUEST,
+  DELETE_PRODUCT,
 } from "../types";
 
 export const fetchProducts = () => async (dispatch) => {
@@ -17,27 +23,32 @@ export const fetchProducts = () => async (dispatch) => {
 };
 
 export const filterProducts = (products, type, category) => (dispatch) => {
-  console.log("filterProds", category);
 
   dispatch({
     type: FILTER_PRODUCTS_BY_TYPE,
     payload: {
       type: type,
       items: ((type === ""  && category === "") ? products : products.filter((x) =>  {
-       
+        
+        console.log("am here type = ", type," categ = ", category);
 
         const conditionOne = x.typeId     === +type;
         const conditionTwo = x.categoryId === +category;
 
-        console.log("----------------------");
-        console.log(x.title)
+  
+        //console.log(x.title)
       
         if(type === "") return conditionTwo;
-       
+
+        if(category === "" || category === undefined ) {
+          console.log("condition one category nothing");
+          return conditionOne;
+        }
+        
 
         if (conditionOne && conditionTwo) {
-          console.log(!conditionOne);
-          console.log("condition two");
+          
+    
           console.log(category)
           console.log(x.categoryId)
           return conditionTwo;
@@ -58,7 +69,7 @@ export const filterProductsByCategory = (products, category) => (dispatch) => {
     type: FILTER_PRODUCTS_BY_CATEGORY,
     payload: {
       category: category,
-      items: (category === "") ? products : products.filter((x) => x.categoryId === +category)
+      //items: (category === "") ? products : products.filter((x) => x.categoryId === +category)
     }
   })
 }
@@ -95,8 +106,85 @@ export const filterTypes = (types, category) => (dispatch) => {
     type: FILTER_TYPES_BY_CATEGORY,
     payload: {
       category: category,
-      items: (category === "" ? types : types.filter((x => x.categoryId === +category)))
+      //items: (category === "" ? types : types.filter((x => x.categoryId === +category)))
     }
    })
 }
 
+export const addProductRequest = (token) => (dispatch) => {
+  dispatch({
+    type: ADD_PRODUCT_REQUEST
+  })
+}
+
+export const addProduct = (token, formData) => async (dispatch) => {
+  dispatch(addProductRequest());
+
+  const res = await fetch("http://localhost:8080/admin/products", {
+    method: "POST",
+    headers: {
+      Authorization  : `Bearer ${token}`
+    },
+    body: formData,
+  });
+  const data = await res.json();
+  dispatch({
+    type: ADD_PRODUCT,
+    payload: {
+      product: data.product
+    }
+  })
+  
+
+  console.log("add product");
+}
+
+export const editProductRequest = (token) => (dispatch) => {
+  dispatch({
+    type: EDIT_PRODUCT_REQUEST
+  })
+}
+
+export const editProduct =  (token, formData, id) => async (dispatch) => {
+  dispatch(editProductRequest());
+
+
+  const res = await fetch(`http://localhost:8080/admin/products/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization  : `Bearer ${token}`
+    },
+    body: formData,
+  });
+  const data = await res.json();
+  dispatch({
+    type: EDIT_PRODUCT,
+    payload: {
+      product: data.product
+    }
+  })
+
+  console.log("edit product");
+}
+
+export const deleteProductRequest = (token) => (dispatch) => {
+  dispatch({
+    type: DELETE_PRODUCT_REQUEST
+  })
+}
+
+export const deleteProduct = (token, productId) => async(dispatch) => {
+  const res = await fetch(`http://localhost:8080/admin/products/${productId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  dispatch({
+    type: DELETE_PRODUCT,
+    payload: {
+      product: productId
+    }
+  })
+}

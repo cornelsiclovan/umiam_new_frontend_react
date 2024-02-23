@@ -17,7 +17,7 @@ class Login extends Component  {
                 value: "",
                 valid: false,
                 touched: false,
-                validators: [required, email],
+                validators: [required],
               },
               password: {
                 value: "",
@@ -86,12 +86,14 @@ class Login extends Component  {
     login = (e) => {
         e.preventDefault();
         const user = {
-          email: this.state.loginForm['email'].value,
-          password: this.state.loginForm['password'].value,
+          // email: this.state.loginForm['email'].value,
+          // password: this.state.loginForm['password'].value,
+          email: "johndoe@gmail.com",
+          password: "Secret1234"
         };
        
         this.props.login(user);
-        const remainingMilliseonds = 60 * 60 * 1000;
+        const remainingMilliseonds = 60 * 60 * 1000 * 24 * 1000;
         const expiryDate = new Date(new Date().getTime() + remainingMilliseonds);
         localStorage.setItem("expiryDate", expiryDate.toISOString());
         
@@ -114,7 +116,7 @@ class Login extends Component  {
               <Input
                 id="email"
                 label="Your email"
-                type="email"
+               
                 control="input"
                 onChange={this.inputChangeHandler}
                 onBlur={this.inputBlurHandler.bind(this, "email")}

@@ -1,7 +1,8 @@
 import { CLEAR_CART, CLEAR_ORDER, CREATE_ORDER } from "../types";
 
-export const createOrder = (order, token) => async (dispatch) => {
-  const res = await fetch("http://localhost:8080/orders", {
+export const createOrder = (order, token, tableId) => async (dispatch) => {
+  console.log(order);
+  const res = await fetch(`http://localhost:8080/orders?tableId=${tableId}`, {
     method: "POST",
     headers: {
       Authorization  : `Bearer ${token}`,

@@ -22,6 +22,8 @@ import CheckEmailConfirmation from "./pages/Auth/CheckEmailConfirmation";
 import Places from "./pages/Admin/Places/Places";
 import Place from "./pages/Admin/Places/Place/Place";
 import PlaceList from "./pages/Home/PlaceList";
+import TableList from "./components/Tables/TableList";
+import Table from "./pages/Tables/Table";
 
 class App extends React.Component {
   constructor(props) {
@@ -148,7 +150,7 @@ class App extends React.Component {
             }
           />
            <Route
-              path="/places/:placeId"
+              path="/places/:placeId/:tableId"
               exact
               element={
                 <div className="content">
@@ -168,6 +170,13 @@ class App extends React.Component {
             <Place />
           }
           />
+          <Route
+          path="/places/:placeId/tableId"
+          element = {
+            <Table />
+          }
+          />
+
          <Route
           path="/owner"
           exact

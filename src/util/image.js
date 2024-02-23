@@ -8,3 +8,4 @@ export const generateBase64FromImage = imageFile => {
     reader.readAsDataURL(imageFile);
     return promise;
 }
+
