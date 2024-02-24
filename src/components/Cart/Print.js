@@ -72,7 +72,7 @@ const Print = (props) => {
 	  y = y + 50
 
       drawDeviceFont(
-        "-----------------------------",
+        "---------------------------------------",
         0,
         y,
         "0",
@@ -88,7 +88,7 @@ const Print = (props) => {
 
       props.cartItems.forEach((element) => {
         const textString =
-          element.title +
+          element.title.substring(0, 20) +
           " x " +
           element.cartItem.quantity +
           " " +
@@ -96,10 +96,12 @@ const Print = (props) => {
           " RON";
         drawDeviceFont(textString, 0, y, "0", 1, 2, 0, 0, 0, 0);
 
+        
+
         y = y + 30;
       });
       drawDeviceFont(
-        "-----------------------------",
+        "---------------------------------------",
         0,
         y,
         "0",

@@ -219,7 +219,7 @@ class Cart extends Component {
                             onChange={this.handleInput}
                           />
                         </li> */}
-                        <li>
+                        {/* <li>
                           <label>Table number</label>
                           <div style={{ display: "flex" }}>
                             <br />
@@ -254,7 +254,7 @@ class Cart extends Component {
                                 </div>
                               ))}
                           </div>
-                        </li>
+                        </li> */}
                         <li>
                           <button
                             className="button button-primary"
