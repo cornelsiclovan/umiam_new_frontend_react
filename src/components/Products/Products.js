@@ -40,11 +40,12 @@ class Products extends Component {
 
   render() {
     const { product } = this.state;
+    
 
     console.log(window.location.href.split("/")[5]);
     return (
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <ul>
+        <ul style={{listStyle: "none"}}>
           <li>
             <Link
               style={{ fontSize: "20px" }}
@@ -53,7 +54,7 @@ class Products extends Component {
                 window.location.href = "../1/1";
               }}
             >
-              Masa 1
+              1
             </Link>
           </li>
           <li>
@@ -64,7 +65,7 @@ class Products extends Component {
                 window.location.href = "../1/2";
               }}
             >
-              Masa 2
+              2
             </Link>
           </li>
           <li>
@@ -75,7 +76,7 @@ class Products extends Component {
                 window.location.href = "../1/3";
               }}
             >
-              Masa 3
+              3
             </Link>
           </li>
           <li>
@@ -86,7 +87,7 @@ class Products extends Component {
                 window.location.href = "../1/4";
               }}
             >
-              Masa 4
+              4
             </Link>
           </li>
         </ul>
@@ -98,7 +99,7 @@ class Products extends Component {
               {this.props.products.map((product) => (
                 <li
                   key={product.id}
-                  style={{ height: "20rem", maxWidth: "15rem" }}
+                  style={{ height: "20rem", maxWidth: "10rem", display:"flex"}}
                 >
                   <div className="product">
                     <a
@@ -162,7 +163,7 @@ class Products extends Component {
                         }}
                         className="button button-primary"
                       >
-                        Add To Cart
+                        Add 
                       </button>
                     </div>
                   </div>
