@@ -107,7 +107,7 @@ class Products extends Component {
                       style={{ textDecoration: "none" }}
                     >
                       <img
-                        style={{ maxHeight: "10rem", maxHeight: "10rem" }}
+                        style={{ maxHeight: "5rem" }}
                         src={`http://localhost:8080/${product.imageUrl}`}
                         alt={product.title}
                       />
