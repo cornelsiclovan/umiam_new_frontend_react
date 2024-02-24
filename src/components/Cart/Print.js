@@ -21,7 +21,7 @@ const Print = (props) => {
   let rotation = 3;
   let issueID = 1;
 
-  console.log(props.order);
+  console.log(props.order.order.table_id);
 
   const changeLabelInch = () => {
     _inch = 2;
@@ -39,7 +39,6 @@ const Print = (props) => {
 
     if (_inch == 2) {
       // 2inch sample
-      console.log("test length");
       setWidth(380);
       setLength(600, 0, "C", 0);
       //   drawDeviceFont(
@@ -58,7 +57,7 @@ const Print = (props) => {
       let y = 100;
 
 	  drawDeviceFont(
-        "Data si ora:" + props.order.order.createdAt.split("T")[0] + props.order.order.createdAt.split("T")[1].split(".")[0],
+        "Data si ora:" + props.order.order.createdAt.split("T")[0] +  "   "  + props.order.order.createdAt.split("T")[1].split(".")[0],
         0,
         y,
         "0",
@@ -93,7 +92,7 @@ const Print = (props) => {
           " x " +
           element.cartItem.quantity +
           " " +
-          element.price +
+          element.price * element.cartItem.quantity +
           " RON";
         drawDeviceFont(textString, 0, y, "0", 1, 2, 0, 0, 0, 0);
 
@@ -135,7 +134,7 @@ const Print = (props) => {
           Math.round(+props.order.order.total / 10 + Number.EPSILON) +
           ")" +
           " RON  TOTAL: " +
-          Math.round(+props.order.order.total * 1.1 + Number.EPSILON),
+          Math.round(+props.order.order.total / 10 + Number.EPSILON) + +props.order.order.total,
         0,
         y,
         "0",
@@ -153,7 +152,7 @@ const Print = (props) => {
           Math.round((+props.order.order.total / 100) * 15 + Number.EPSILON) +
           ")" +
           " RON   TOTAL: " +
-          Math.round(+props.order.order.total * 1.15 + Number.EPSILON),
+          Math.round((+props.order.order.total / 100) * 15 + Number.EPSILON) + +props.order.order.total,
         0,
         y,
         "0",

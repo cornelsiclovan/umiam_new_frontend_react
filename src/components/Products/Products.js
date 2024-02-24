@@ -8,15 +8,16 @@ import { addToCart, getCart } from "../../actions/cartActions";
 import { connect } from "react-redux";
 import { getCategories, getTypes } from "../../actions/ownerActions";
 
-import './Products.css';
+import "./Products.css";
 import { Link } from "react-router-dom";
-
 
 class Products extends Component {
   constructor(props) {
     super(props);
     this.state = {
       product: null,
+      pastravWeight: 1,
+      somonWeight: 1,
     };
   }
 
@@ -42,7 +43,7 @@ class Products extends Component {
 
     console.log(window.location.href.split("/")[5]);
     return (
-      <div style={{ display: "flex", flexDirection: "row"}}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <ul>
           <li>
             <Link
@@ -93,38 +94,78 @@ class Products extends Component {
           {!this.props.products ? (
             <div>Loading...</div>
           ) : (
-            <ul className="products" >
+            <ul className="products">
               {this.props.products.map((product) => (
-                <li key={product.id} style={{height: "20rem", maxWidth: "15rem"}}>
+                <li
+                  key={product.id}
+                  style={{ height: "20rem", maxWidth: "15rem" }}
+                >
                   <div className="product">
                     <a
                       href={"#" + product.id}
                       onClick={() => this.openModal(product)}
-                      style={{textDecoration: "none"}}
+                      style={{ textDecoration: "none" }}
                     >
                       <img
-                        style={{maxHeight: "10rem", maxHeight: "10rem"}}
+                        style={{ maxHeight: "10rem", maxHeight: "10rem" }}
                         src={`http://localhost:8080/${product.imageUrl}`}
                         alt={product.title}
-                      />  
-                      <p><b>{product.title}</b>   {product.price && formatCurrency(+product.price)}</p>
+                      />
+                      <p>
+                        <b>{product.title}</b>{" "}
+                        {product.price && formatCurrency(+product.price)}
+                      </p>
                     </a>
-                    <div className="product-price">
-                      
-                      <button
-                        onClick={() =>
-                          this.props.addToCart(
-                            product,
-                            this.props.token,
-                            window.location.href.split("/")[5]
-                          )
+                    {product.title === "Pastrav" && (
+                      <input
+                        type="number"
+                        value={this.state.pastravWeight}
+                        onChange={(event) =>
+                          this.setState({ pastravWeight: event.target.value })
                         }
-                        className="button button-primary" 
+                      />
+                    )}
+                    {product.title === "Somon" && (
+                      <input
+                        type="number"
+                        value={this.state.somonWeight}
+                        onChange={(event) =>
+                          this.setState({ somonWeight: event.target.value })
+                        }
+                      />
+                    )}
+                    <div className="product-price">
+                      <button
+                        onClick={() => {
+                          if (product.title === "Pastrav") {
+                            this.props.addToCart(
+                              product,
+                              this.props.token,
+                              window.location.href.split("/")[5],
+                              this.state.pastravWeight
+                            );
+                          } else if (product.title === "Somon") {
+                            this.props.addToCart(
+                              product,
+                              this.props.token,
+                              window.location.href.split("/")[5],
+                              this.state.somonWeight
+                            );
+                          } else {
+                            this.props.addToCart(
+                              product,
+                              this.props.token,
+                              window.location.href.split("/")[5],
+                              1
+                            );
+                          }
+                        }}
+                        className="button button-primary"
                       >
                         Add To Cart
                       </button>
                     </div>
-                  </div>  
+                  </div>
                 </li>
               ))}
             </ul>

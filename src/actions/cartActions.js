@@ -35,7 +35,7 @@ export const getCart = (token, tableId) => async (dispatch) => {
 };
 
 export const addToCart =
-  (product, token, tableId) => async (dispatch, getState) => {
+  (product, token, tableId, fishWeight) => async (dispatch, getState) => {
     //  const cartItems = getState().cart.cartItems.slice();
     //  let alreadyExists = false;
     //  console.log(cartItems);
@@ -60,7 +60,7 @@ export const addToCart =
           Authorization: "Bearer " + token,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ productId: product.id, tableId: tableId }),
+        body: JSON.stringify({ productId: product.id, tableId: tableId, fishWeight }),
       });
 
       if (res.status !== 200) {
