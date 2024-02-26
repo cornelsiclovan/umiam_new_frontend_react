@@ -107,11 +107,7 @@ class Products extends Component {
                   }}
                 >
                   <div className="product">
-                    <a
-                      href={"#" + product.id}
-                      onClick={() => this.openModal(product)}
-                      style={{ textDecoration: "none" }}
-                    >
+                    
                       <img
                         style={{ maxHeight: "5rem" }}
                         src={`http://localhost:8080/${product.imageUrl}`}
@@ -121,7 +117,7 @@ class Products extends Component {
                         <b>{product.title}</b>{" "}
                         {product.price && formatCurrency(+product.price)}
                       </p>
-                    </a>
+                   
                     {product.title === "Pastrav" && (
                       <input
                         type="number"
