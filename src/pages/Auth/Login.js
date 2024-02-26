@@ -93,7 +93,7 @@ class Login extends Component  {
         };
        
         this.props.login(user);
-        const remainingMilliseonds = 60 * 60 * 1000 * 24 * 1000;
+        const remainingMilliseonds = 60 * 60 * 1000 * 24;
         const expiryDate = new Date(new Date().getTime() + remainingMilliseonds);
         localStorage.setItem("expiryDate", expiryDate.toISOString());
         

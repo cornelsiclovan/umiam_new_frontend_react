@@ -40,7 +40,7 @@ class Products extends Component {
 
   render() {
     const { product } = this.state;
-    
+
 
     console.log(window.location.href.split("/")[5]);
     return (
@@ -48,7 +48,7 @@ class Products extends Component {
         <ul style={{listStyle: "none"}}>
           <li>
             <Link
-              style={{ fontSize: "20px" }}
+              style={{ fontSize: "40px", padding: "20px"}}
               to="../places/1/1"
               onClick={() => {
                 window.location.href = "../1/1";
@@ -59,7 +59,7 @@ class Products extends Component {
           </li>
           <li>
             <Link
-              style={{ fontSize: "20px" }}
+              style={{ fontSize: "40px", padding: "20px"}}
               to="../places/1/2"
               onClick={() => {
                 window.location.href = "../1/2";
@@ -70,8 +70,8 @@ class Products extends Component {
           </li>
           <li>
             <Link
-              style={{ fontSize: "20px" }}
-              to="../places/1/4"
+              style={{ fontSize: "40px", padding: "20px" }}
+              to="../places/1/3"
               onClick={() => {
                 window.location.href = "../1/3";
               }}
@@ -81,11 +81,10 @@ class Products extends Component {
           </li>
           <li>
             <Link
-              style={{ fontSize: "20px" }}
-              to="../places/1/3"
-              onClick={() => {
-                window.location.href = "../1/4";
-              }}
+
+              style={{ fontSize: "40px", padding: "20px"}}
+              to="../places/1/4"
+             
             >
               4
             </Link>
