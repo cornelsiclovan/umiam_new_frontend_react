@@ -37,6 +37,10 @@ const Print = (props) => {
     setLabelId(issueID);
     clearBuffer();
 
+    const totalcinciprocente = Math.round(+props.order.order.total / 20 + Number.EPSILON) + +props.order.order.total;;
+    const totalzeceprocente =  Math.round(+props.order.order.total / 10 + Number.EPSILON) + +props.order.order.total;
+    const totalcinspeprocente = Math.round(+props.order.order.total / 100 * 15 + Number.EPSILON) + +props.order.order.total;;
+
     if (_inch == 2) {
       // 2inch sample
       setWidth(380);
@@ -131,12 +135,31 @@ const Print = (props) => {
       y = y + 35;
 
       drawDeviceFont(
+        "[] bacsis 5 % " +
+          "(" +
+          Math.round(+props.order.order.total / 10 + Number.EPSILON) +
+          ")" +
+          " RON  TOTAL: " +
+          totalcinciprocente,
+        0,
+        y,
+        "0",
+        1,
+        2,
+        0,
+        0,
+        0,
+        0
+      );
+      y = y + 35;
+
+      drawDeviceFont(
         "[] bacsis 10 % " +
           "(" +
           Math.round(+props.order.order.total / 10 + Number.EPSILON) +
           ")" +
           " RON  TOTAL: " +
-          Math.round(+props.order.order.total / 10 + Number.EPSILON) + +props.order.order.total,
+          totalzeceprocente,
         0,
         y,
         "0",
@@ -154,7 +177,7 @@ const Print = (props) => {
           Math.round((+props.order.order.total / 100) * 15 + Number.EPSILON) +
           ")" +
           " RON   TOTAL: " +
-          Math.round((+props.order.order.total / 100) * 15 + Number.EPSILON) + +props.order.order.total,
+           +totalcinspeprocente,
         0,
         y,
         "0",
