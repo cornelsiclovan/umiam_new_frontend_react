@@ -22,7 +22,6 @@ import CheckEmailConfirmation from "./pages/Auth/CheckEmailConfirmation";
 import Places from "./pages/Admin/Places/Places";
 import Place from "./pages/Admin/Places/Place/Place";
 import PlaceList from "./pages/Home/PlaceList";
-import TableList from "./components/Tables/TableList";
 import Table from "./pages/Tables/Table";
 
 class App extends React.Component {
@@ -40,27 +39,28 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('token');
-    const expiryDate = localStorage.getItem('expiryDate');
-    if(!token || !expiryDate) {
+    const token = localStorage.getItem("token");
+    const expiryDate = localStorage.getItem("expiryDate");
+    if (!token || !expiryDate) {
       return;
     }
 
-    if(new Date(expiryDate) <= new Date()) {
+    if (new Date(expiryDate) <= new Date()) {
       this.logoutHandler();
       return;
     }
 
-    const remainingMilliseonds = new Date(expiryDate).getTime() - new Date().getTime();
+    const remainingMilliseonds =
+      new Date(expiryDate).getTime() - new Date().getTime();
     this.setAutoLogout(remainingMilliseonds);
   }
 
-  setAutoLogout = miliseconds => {
+  setAutoLogout = (miliseconds) => {
     setTimeout(() => {
       this.logoutHandler();
       this.props.clearOrder();
     }, miliseconds);
-  }
+  };
 
   mobileNavHandler = (isOpen) => {
     this.setState({ showMobileNav: isOpen, showBackdrop: isOpen });
@@ -78,7 +78,6 @@ class App extends React.Component {
     this.props.cancelError();
   };
 
-  
   render() {
     const { isAuth, token, isAdmin, isOwner } = this.props;
 
@@ -92,14 +91,22 @@ class App extends React.Component {
           element={<TokenRegistryConfirmation />}
         />
         <Route path="/forgot-password" exact element={<RecoverPassword />} />
-        <Route path="/change-password/:token" exact element={<ChangePassword/>} />
-        <Route path="/check-email-confirmation" exact element={<CheckEmailConfirmation />} />
+        <Route
+          path="/change-password/:token"
+          exact
+          element={<ChangePassword />}
+        />
+        <Route
+          path="/check-email-confirmation"
+          exact
+          element={<CheckEmailConfirmation />}
+        />
       </Routes>
     );
     if (isAuth) {
       routes = (
         <Routes>
-           <Route
+          <Route
             path="/"
             exact
             element={
@@ -132,65 +139,45 @@ class App extends React.Component {
       );
     }
 
-    if(isOwner && isAuth) {
+    if (isOwner && isAuth) {
       routes = (
-       <Routes>
-        <Route
+        <Routes>
+          <Route
             path="/"
             exact
             element={
               <div className="content">
                 <div className="main">
-                  <PlaceList  />                 
+                  <PlaceList />
+                </div>
+                <div className="sidebar"></div>
+              </div>
+            }
+          />
+          <Route
+            path="/places/:placeId/:tableId"
+            exact
+            element={
+              <div className="content">
+                <div className="main">
+                  <Filter />
+                  <Products />
                 </div>
                 <div className="sidebar">
-               
+                  <Cart />
                 </div>
               </div>
             }
           />
-           <Route
-              path="/places/:placeId/:tableId"
-              exact
-              element={
-                <div className="content">
-                  <div className="main">
-                    <Filter />
-                    <Products />
-                  </div>
-                  <div className="sidebar">
-                    <Cart />
-                  </div>
-                </div>
-              }
-            /> 
-          <Route
-          path="/owner/places/:placeId"
-          element = {
-            <Place />
-          }
-          />
-          <Route
-          path="/places/:placeId/tableId"
-          element = {
-            <Table />
-          }
-          />
+          <Route path="/owner/places/:placeId" element={<Place />} />
+          <Route path="/places/:placeId/tableId" element={<Table />} />
 
-         <Route
-          path="/owner"
-          exact
-          element = {
-            <Places />
-          }
-         />
-         
-       </Routes>
-      )
+          <Route path="/owner" exact element={<Places />} />
+        </Routes>
+      );
     }
 
     return (
-
       <Fragment>
         {this.state.showBackdrop && (
           <Backdrop onClick={this.backdropClickHandler} />
@@ -238,11 +225,11 @@ export default connect(
     error: state.auth.error,
     userId: state.auth.userId,
     isAdmin: state.auth.isAdmin,
-    isOwner: state.auth.isOwner
+    isOwner: state.auth.isOwner,
   }),
   {
     logout,
     cancelError,
-    clearOrder
+    clearOrder,
   }
 )(App);

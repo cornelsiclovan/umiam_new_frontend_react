@@ -7,6 +7,7 @@ import { fetchProducts } from "../../actions/productActions";
 import { addToCart, getCart } from "../../actions/cartActions";
 import { connect } from "react-redux";
 import { getCategories, getTypes } from "../../actions/ownerActions";
+import { getPlace } from "../../actions/ownerActions";
 
 import "./Products.css";
 import { Link } from "react-router-dom";
@@ -18,6 +19,7 @@ class Products extends Component {
       product: null,
       pastravWeight: 1,
       somonWeight: 1,
+      tableClicked: 1
     };
   }
 
@@ -27,6 +29,8 @@ class Products extends Component {
     this.props.fetchProducts(placeId);
     this.props.getCategories(this.props.token);
     this.props.getTypes(this.props.token, placeId);
+    this.props.getPlace(this.props.token, placeId);
+    
   }
 
   openModal = (product) => {
@@ -40,55 +44,52 @@ class Products extends Component {
 
   render() {
     const { product } = this.state;
+    const { place } = this.props;
 
+    let tableNumberArray = [];
 
-    console.log(window.location.href.split("/")[5]);
+    if (place && place.tableNumber > 0) {
+      for (let i = 0; i < place.tableNumber; i++) {
+        tableNumberArray.push(i + 1);
+      }
+    }
+
     return (
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <ul style={{listStyle: "none"}}>
-          <li>
-            <Link
-              style={{ fontSize: "40px", padding: "20px"}}
-              to="../places/1/1"
-              onClick={() => {
-                window.location.href = "../1/1";
-              }}
-            >
-              1
-            </Link>
-          </li>
-          <li>
-            <Link
-              style={{ fontSize: "40px", padding: "20px"}}
-              to="../places/1/2"
-              onClick={() => {
-                window.location.href = "../1/2";
-              }}
-            >
-              2
-            </Link>
-          </li>
-          <li>
-            <Link
-              style={{ fontSize: "40px", padding: "20px" }}
-              to="../places/1/3"
-              onClick={() => {
-                window.location.href = "../1/3";
-              }}
-            >
-              3
-            </Link>
-          </li>
-          <li>
-            <Link
-
-              style={{ fontSize: "40px", padding: "20px"}}
-              to="../places/1/4"
-             
-            >
-              4
-            </Link>
-          </li>
+        <ul style={{ listStyle: "none" }}>
+          {tableNumberArray &&
+            tableNumberArray.map((number) => (
+              <li>
+                {this.state.tableClicked === number && <button
+                  style={{ fontSize: "20px", padding: "15px", backgroundColor: "#fab83f", minWidth: "45px"}}
+                  
+                  
+                  onClick={() => {
+                    this.props.getCart(this.props.token, number);
+                    
+                  }}
+                  // onClick={() => {
+                  //   window.location.href = `../1/${number}`;
+                  // }}
+                >
+                  {number}
+                </button>}
+                {this.state.tableClicked !== number && <button
+                  style={{ fontSize: "20px", padding: "15px", maxWidth: "45px", minWidth: "45px" }}
+                  
+                  
+                  onClick={() => {
+                    this.props.getCart(this.props.token, number);
+                    this.setState({...this.state, tableClicked: number})
+                  }}
+                  // onClick={() => {
+                  //   window.location.href = `../1/${number}`;
+                  // }}
+                >
+                  {number}
+                </button>}
+              </li>
+            ))}
         </ul>
         <Fade bottom cascade>
           {!this.props.products ? (
@@ -98,7 +99,11 @@ class Products extends Component {
               {this.props.products.map((product) => (
                 <li
                   key={product.id}
-                  style={{ height: "20rem", maxWidth: "10rem", display:"flex"}}
+                  style={{
+                    height: "20rem",
+                    maxWidth: "10rem",
+                    display: "flex",
+                  }}
                 >
                   <div className="product">
                     <a
@@ -119,6 +124,7 @@ class Products extends Component {
                     {product.title === "Pastrav" && (
                       <input
                         type="number"
+                        style={{ width: "100px", height: "10px" }}
                         value={this.state.pastravWeight}
                         onChange={(event) =>
                           this.setState({ pastravWeight: event.target.value })
@@ -128,6 +134,7 @@ class Products extends Component {
                     {product.title === "Somon" && (
                       <input
                         type="number"
+                        style={{ width: "100px", height: "10px" }}
                         value={this.state.somonWeight}
                         onChange={(event) =>
                           this.setState({ somonWeight: event.target.value })
@@ -141,28 +148,28 @@ class Products extends Component {
                             this.props.addToCart(
                               product,
                               this.props.token,
-                              window.location.href.split("/")[5],
+                              this.state.tableClicked,
                               this.state.pastravWeight
                             );
                           } else if (product.title === "Somon") {
                             this.props.addToCart(
                               product,
                               this.props.token,
-                              window.location.href.split("/")[5],
+                              this.state.tableClicked,
                               this.state.somonWeight
                             );
                           } else {
                             this.props.addToCart(
                               product,
                               this.props.token,
-                              window.location.href.split("/")[5],
+                              this.state.tableClicked,
                               1
                             );
                           }
                         }}
                         className="button button-primary"
                       >
-                        Add 
+                        Add
                       </button>
                     </div>
                   </div>
@@ -218,6 +225,7 @@ export default connect(
   (state) => ({
     products: state.products.filteredItems,
     token: state.auth.token,
+    place: state.places.place,
   }),
   {
     fetchProducts,
@@ -225,5 +233,6 @@ export default connect(
     getCategories,
     getTypes,
     getCart,
+    getPlace,
   }
 )(Products);

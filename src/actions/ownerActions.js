@@ -132,6 +132,7 @@ export const getPlaceRequest = () => async (dispatch) => {
 export const getPlace = (token, placeId) => async (dispatch) => {
   dispatch(getPlaceRequest());
 
+
   const res = await fetch(`http://localhost:8080/admin/places/${placeId}`, {
     method: "GET",
     headers: {

@@ -67,7 +67,6 @@ class Cart extends Component {
 
     let tableNumberArray = [];
 
-    console.log("test");
 
     if (place && place.tableNumber > 0) {
       for (let i = 0; i < place.tableNumber; i++) {

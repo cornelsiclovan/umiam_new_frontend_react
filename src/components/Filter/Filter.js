@@ -14,7 +14,7 @@ class Filter extends Component {
         <div className="filter-result">
           {this.props.filteredProducts.length} Products
         </div>
-        <div className="filter-sort">
+        {/* <div className="filter-sort">
           Order{" "}
           <select
             value={this.props.sort}
@@ -29,7 +29,7 @@ class Filter extends Component {
             <option value="lowest">Lowest</option>
             <option value="highest">Highest</option>
           </select>
-        </div>
+        </div> */}
 
         {this.props.categories  && (
           <div className="filter-size">
