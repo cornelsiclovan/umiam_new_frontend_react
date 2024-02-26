@@ -66,7 +66,7 @@ class Products extends Component {
                   
                   onClick={() => {
                     this.props.getCart(this.props.token, number);
-                    
+                    window.location.href =`#${number}`;
                   }}
                   // onClick={() => {
                   //   window.location.href = `../1/${number}`;
@@ -81,6 +81,7 @@ class Products extends Component {
                   onClick={() => {
                     this.props.getCart(this.props.token, number);
                     this.setState({...this.state, tableClicked: number})
+                    window.location.href =`#${number}`;
                   }}
                   // onClick={() => {
                   //   window.location.href = `../1/${number}`;

@@ -20,13 +20,13 @@ class Cart extends Component {
       name: "",
       email: "",
       address: "",
-      tableNumber: window.location.href.split("/")[5],
+      tableNumber: window.location.href.split("#")[1],
       showCheckout: false,
     };
   }
 
   componentDidMount = () => {
-    this.props.getCart(this.props.token, window.location.href.split("/")[5]);
+    this.props.getCart(this.props.token, window.location.href.split("#")[1]);
     const placeId = window.location.href.split("/")[4];
     this.props.getPlace(this.props.token, placeId);
   };
@@ -42,17 +42,15 @@ class Cart extends Component {
         (a, c) => a + c.price * c.cartItem.quantity,
         0
       ),
-      tableNumber: this.state.tableNumber,
-      // name: this.state.name,
-      // email: this.state.email,
-      // address: this.state.address,
-      // cartItems: this.props.cartItems,
+      tableNumber: window.location.href.split("#")[1]
+  
     };
+
 
     this.props.createOrder(
       order,
       this.props.token,
-      window.location.href.split("/")[5]
+      window.location.href.split("#")[1]
     );
   };
 
@@ -150,7 +148,7 @@ class Cart extends Component {
                             this.props.removeFromCart(
                               item,
                               this.props.token,
-                              window.location.href.split("/")[5]
+                              window.location.href.split("#")[1]
                             )
                           }
                         >

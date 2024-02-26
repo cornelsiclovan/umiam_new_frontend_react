@@ -16,7 +16,7 @@ class PlaceList extends Component {
                  {
                     this.props.placeList &&
                     this.props.placeList.map(place => (
-                       <NavLink style={{fontSize: "50px"}} key={place.id} to={`/places/1/1`}>{place.title}</NavLink>
+                       <NavLink style={{fontSize: "50px"}} key={place.id} to={`/places/1/1#1`}>{place.title}</NavLink>
                     ))
                 }
             </Fragment>
