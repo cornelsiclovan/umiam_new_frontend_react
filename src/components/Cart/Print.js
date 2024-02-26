@@ -76,7 +76,7 @@ const Print = (props) => {
 	  y = y + 50
 
       drawDeviceFont(
-        "---------------------------------------",
+        "---------------------------------------------",
         0,
         y,
         "0",
@@ -94,18 +94,18 @@ const Print = (props) => {
         const textString =
           element.title.substring(0, 20) +
           " x " +
-          element.cartItem.quantity +
-          " " +
-          element.price * element.cartItem.quantity +
+          element.cartItem.quantity;
+
+       const textString2 = element.price * element.cartItem.quantity +
           " RON";
         drawDeviceFont(textString, 0, y, "0", 1, 2, 0, 0, 0, 0);
 
-        
+        drawDeviceFont(textString2, 200, y, "0", 1, 2, 0, 0, 0, 0);
 
         y = y + 30;
       });
       drawDeviceFont(
-        "---------------------------------------",
+        "---------------------------------------------",
         0,
         y,
         "0",
@@ -137,7 +137,7 @@ const Print = (props) => {
       drawDeviceFont(
         "[] bacsis 5 % " +
           "(" +
-          Math.round(+props.order.order.total / 10 + Number.EPSILON) +
+          Math.round(+props.order.order.total / 20 + Number.EPSILON) +
           ")" +
           " RON  TOTAL: " +
           totalcinciprocente,
