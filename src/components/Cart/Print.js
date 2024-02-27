@@ -89,12 +89,13 @@ const Print = (props) => {
       );
 
        y = y + 30;
-      let completeString = "";
-      if(element.title.length < 20) {
-         completeString = " ".repeat(20 - element.title.length);
-      }
+     
 
       props.cartItems.forEach((element) => {
+        let completeString = "";
+        if(element.title.length < 20) {
+           completeString = " ".repeat(20 - element.title.length);
+        }
         const textString =
           element.title.substring(0, 20) + completeString + "    " +
           " x " +
