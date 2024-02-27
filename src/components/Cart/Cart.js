@@ -102,7 +102,8 @@ class Cart extends Component {
                   </li>
                   <li>
                     <div>Date:</div>
-                    <div>{order.order.createdAt}</div>
+                    <div>{new Date(new Date().getTime()).toLocaleTimeString()}</div>
+                    
                   </li>
                   <li>
                     <div>Total:</div>

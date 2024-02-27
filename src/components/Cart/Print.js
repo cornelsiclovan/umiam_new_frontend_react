@@ -61,7 +61,7 @@ const Print = (props) => {
       let y = 100;
 
 	  drawDeviceFont(
-        "Data si ora:" + props.order.order.createdAt.split("T")[0] +  "   "  + props.order.order.createdAt.split("T")[1].split(".")[0],
+        "Data si ora:" + props.order.order.createdAt.split("T")[0] +  "   "  + new Date(new Date().getTime()).toLocaleTimeString(),
         0,
         y,
         "0",
@@ -143,7 +143,7 @@ const Print = (props) => {
           "(" +
           Math.round(+props.order.order.total / 20 + Number.EPSILON) +
           ")" +
-          " RON  TOTAL: " +
+          "  RON TOTAL: " +
           totalcinciprocente,
         0,
         y,
@@ -162,7 +162,7 @@ const Print = (props) => {
           "(" +
           Math.round(+props.order.order.total / 10 + Number.EPSILON) +
           ")" +
-          " RON  TOTAL: " +
+          " RON TOTAL: " +
           totalzeceprocente,
         0,
         y,
@@ -180,7 +180,7 @@ const Print = (props) => {
           "(" +
           Math.round((+props.order.order.total / 100) * 15 + Number.EPSILON) +
           ")" +
-          " RON   TOTAL: " +
+          " RON TOTAL: " +
            +totalcinspeprocente,
         0,
         y,
