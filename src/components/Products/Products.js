@@ -61,7 +61,7 @@ class Products extends Component {
             tableNumberArray.map((number) => (
               <li>
                 {this.state.tableClicked === number && <button
-                  style={{ fontSize: "20px", padding: "15px", backgroundColor: "#fab83f", minWidth: "45px"}}
+                  style={{ fontSize: "20px", padding: "5px", backgroundColor: "#fab83f", minWidth: "45px", marginBottom: "3px"}}
                   
                   
                   onClick={() => {
@@ -75,7 +75,7 @@ class Products extends Component {
                   {number}
                 </button>}
                 {this.state.tableClicked !== number && <button
-                  style={{ fontSize: "20px", padding: "15px", maxWidth: "45px", minWidth: "45px" }}
+                  style={{ fontSize: "20px", padding: "5px", maxWidth: "45px", minWidth: "45px", marginBottom: "3px"}}
                   
                   
                   onClick={() => {

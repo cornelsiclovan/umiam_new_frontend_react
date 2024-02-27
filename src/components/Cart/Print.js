@@ -89,18 +89,21 @@ const Print = (props) => {
       );
 
        y = y + 30;
+      let completeString = "";
+      if(element.title.length < 20) {
+         completeString = " ".repeat(20 - element.title.length);
+      }
 
       props.cartItems.forEach((element) => {
         const textString =
-          element.title.substring(0, 20) +
+          element.title.substring(0, 20) + completeString + "    " +
           " x " +
-          element.cartItem.quantity;
-
-       const textString2 = element.price * element.cartItem.quantity +
+          element.cartItem.quantity +
+          " " +
+          element.price * element.cartItem.quantity +
           " RON";
         drawDeviceFont(textString, 0, y, "0", 1, 2, 0, 0, 0, 0);
 
-        drawDeviceFont(textString2, 200, y, "0", 1, 2, 0, 0, 0, 0);
 
         y = y + 30;
       });
