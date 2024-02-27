@@ -61,7 +61,7 @@ const Print = (props) => {
       let y = 100;
 
 	  drawDeviceFont(
-        "Data si ora:" + props.order.order.createdAt.split("T")[0] +  "   "  + new Date(new Date().getTime()).toLocaleTimeString(),
+        "Data si ora:" + props.order.order.createdAt.split("T")[0] +  "   "  + new Date(new Date().getTime()).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
         0,
         y,
         "0",
