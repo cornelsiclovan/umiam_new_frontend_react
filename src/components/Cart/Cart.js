@@ -102,8 +102,8 @@ class Cart extends Component {
                   </li>
                   <li>
                     <div>Date:</div>
-                    <div>{new Date(new Date().getTime()).toLocaleTimeString()}</div>
-                    
+                    <div>{new Date(new Date().getTime()).toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
+                      
                   </li>
                   <li>
                     <div>Total:</div>
