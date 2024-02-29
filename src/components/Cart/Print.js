@@ -108,7 +108,7 @@ const Print = (props) => {
           element.price + " x " +
           element.cartItem.quantity +
           "  " +
-          element.price * element.cartItem.quantity +
+          Math.round( element.price * element.cartItem.quantity + Number.EPSILON) +
           " RON";
         drawDeviceFont(textString, 0, y, "0", 1, 2, 0, 0, 0, 0);
 
