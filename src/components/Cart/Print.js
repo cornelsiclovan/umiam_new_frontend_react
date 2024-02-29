@@ -102,9 +102,9 @@ const Print = (props) => {
         }
         const textString =
           element.title.substring(0, 20) + completeString + "    " +
-          " x " +
+          element.price + " x " +
           element.cartItem.quantity +
-          " " +
+          "     " +
           element.price * element.cartItem.quantity +
           " RON";
         drawDeviceFont(textString, 0, y, "0", 1, 2, 0, 0, 0, 0);
