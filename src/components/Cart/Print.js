@@ -37,9 +37,9 @@ const Print = (props) => {
     setLabelId(issueID);
     clearBuffer();
 
-    const totalcinciprocente = Math.round(+props.order.order.total / 20 + Number.EPSILON) + +props.order.order.total;;
-    const totalzeceprocente =  Math.round(+props.order.order.total / 10 + Number.EPSILON) + +props.order.order.total;
-    const totalcinspeprocente = Math.round(+props.order.order.total / 100 * 15 + Number.EPSILON) + +props.order.order.total;;
+    const totalcinciprocente = Math.round(+props.order.order.total / 20 + Number.EPSILON) + Math.round(+props.order.order.total);
+    const totalzeceprocente =  Math.round(+props.order.order.total / 10 + Number.EPSILON) + Math.round(+props.order.order.total);
+    const totalcinspeprocente = Math.round(+props.order.order.total / 100 * 15 + Number.EPSILON) + Math.round(+props.order.order.total);
 
     if (_inch == 2) {
       // 2inch sample
