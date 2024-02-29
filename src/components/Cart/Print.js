@@ -45,7 +45,7 @@ const Print = (props) => {
       // 2inch sample
       setWidth(380);
 
-      let receiptLength = 600 + 40 * props.cartItems.length;
+      let receiptLength = 600 + 38 * props.cartItems.length;
 
 
       setLength(receiptLength, 0, "C", 0);
@@ -104,7 +104,7 @@ const Print = (props) => {
           element.title.substring(0, 20) + completeString + "    " +
           element.price + " x " +
           element.cartItem.quantity +
-          "     " +
+          "  " +
           element.price * element.cartItem.quantity +
           " RON";
         drawDeviceFont(textString, 0, y, "0", 1, 2, 0, 0, 0, 0);
