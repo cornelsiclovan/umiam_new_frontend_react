@@ -131,7 +131,7 @@ const Print = (props) => {
       y = y + 25;
 
       drawDeviceFont(
-        "Total: " + props.order.order.total + " RON",
+        "Total: " +  Math.round(+props.order.order.total + Number.EPSILON)+ " RON",
         0,
         y,
         "0",
