@@ -100,6 +100,9 @@ const Print = (props) => {
         if(element.title.length < 20) {
            completeString = " ".repeat(20 - element.title.length);
         }
+        if(element.title.length < 20 && (element.title === "Pastrav" || element.title === "Somon")) {
+          completeString = " ".repeat(16 - element.title.length)
+        }
         const textString =
           element.title.substring(0, 20) + completeString + "    " +
           element.price + " x " +
