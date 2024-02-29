@@ -44,7 +44,11 @@ const Print = (props) => {
     if (_inch == 2) {
       // 2inch sample
       setWidth(380);
-      setLength(600, 0, "C", 0);
+
+      let receiptLength = 600 + 40 * props.cartItems.length;
+
+
+      setLength(receiptLength, 0, "C", 0);
       //   drawDeviceFont(
       //     "ciorba de burta x 3         70 ron",
       //     0,
