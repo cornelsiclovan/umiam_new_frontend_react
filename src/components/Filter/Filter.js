@@ -33,8 +33,9 @@ class Filter extends Component {
 
         {this.props.categories  && (
           <div className="filter-size">
-            Categories{" "}
+            Categ.{" "}
             <select
+              style={{height: "40px"}}
               value={this.props.size}
               onChange={(e) =>{
                 
@@ -55,8 +56,9 @@ class Filter extends Component {
 
         {(this.props.types || this.props.filteredTypes) && (
           <div className="filter-size">
-            Types(by categ.){" "}
+            Tip{" "}
             <select
+             style={{height: "40px"}}
               value={this.props.size}
               onChange={(e) =>
                     {
