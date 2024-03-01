@@ -132,12 +132,12 @@ class Cart extends Component {
               <ul className="cart-items">
                 {cartItems.map((item) => (
                   <li key={item.cartItem.id}>
-                    <div>
+                    {/* <div>
                       <img
                         src={`http://localhost:8080/${item.imageUrl}`}
                         alt={item.title}
                       ></img>
-                    </div>
+                    </div> */}
                     <div>{item.title}</div>
                    
                     <div className="right">

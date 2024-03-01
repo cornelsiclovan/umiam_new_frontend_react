@@ -101,18 +101,18 @@ class Products extends Component {
                 <li
                   key={product.id}
                   style={{
-                    height: "20rem",
+                    height: "15rem",
                     maxWidth: "10rem",
                     display: "flex",
                   }}
                 >
                   <div className="product">
                     
-                      <img
+                      {/* <img
                         style={{ maxHeight: "5rem" }}
                         src={`http://localhost:8080/${product.imageUrl}`}
                         alt={product.title}
-                      />
+                      /> */}
                       <p>
                         <b>{product.title}</b>{" "}
                         {product.price && formatCurrency(+product.price)}
