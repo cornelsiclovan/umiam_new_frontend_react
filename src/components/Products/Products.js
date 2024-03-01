@@ -56,12 +56,12 @@ class Products extends Component {
 
     return (
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <ul style={{ listStyle: "none" }}>
+        <ul style={{ listStyle: "none", columnCount: "3"}}>
           {tableNumberArray &&
             tableNumberArray.map((number) => (
               <li>
                 {this.state.tableClicked === number && <button
-                  style={{ fontSize: "20px", padding: "5px", backgroundColor: "#fab83f", minWidth: "45px", marginBottom: "3px"}}
+                  style={{ fontSize: "20px", padding: "5px", backgroundColor: "#fab83f", minWidth: "45px", marginBottom: "3px", flexWrap: "wrap"}}
                   
                   
                   onClick={() => {

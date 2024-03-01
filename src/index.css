@@ -64,7 +64,7 @@ footer {
 }
 
 .sidebar {
-  flex: 1 20rem;
+  flex: 0.5 15rem;
 }
 
 /*Order details*/
@@ -85,7 +85,7 @@ footer {
 .order-details li div {
   padding: 10px;
 }
-
+   
 .order-details .items {
   text-align: right;
   padding: 0;
