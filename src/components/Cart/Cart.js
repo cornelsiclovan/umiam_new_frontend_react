@@ -12,6 +12,7 @@ import Modal from "react-modal";
 import "./Cart.css";
 import { Zoom } from "react-reveal";
 import Print from "./Print";
+import PrintFood from "./PrintFood";
 
 class Cart extends Component {
   constructor(props) {
@@ -183,6 +184,7 @@ class Cart extends Component {
                   >
                     Proceed
                   </button>
+              
                 </div>
               </div>
               {this.state.showCheckout && (
@@ -260,6 +262,8 @@ class Cart extends Component {
                           >
                             Checkout
                           </button>
+                          <br />
+                           <PrintFood cartItems={cartItems} />
                         </li>
                       </ul>
                     </form>

@@ -67,3 +67,7 @@ export const DELETE_TYPE = "DELETE_TYPE";
 // Places Client
 export const PLACES_REQUEST_BY_CLIENT = "PLACES_REQUEST_BY_CLIENT";
 export const GET_PLACES_BY_CLIENT = "GET_PLACES_BY_CLIENT";
+
+
+// Orders
+export const GET_ORDERS = "GET_ORDERS";

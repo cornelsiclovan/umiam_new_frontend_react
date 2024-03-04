@@ -16,7 +16,7 @@ import { cutPaper, printText } from "./bxlpos";
 
 import { requestPrint, viewResult } from "./bxlcommon.js";
 
-const Print = (props) => {
+const PrintFood = (props) => {
   let _inch = 2;
   let rotation = 3;
   let issueID = 1;
@@ -37,9 +37,7 @@ const Print = (props) => {
     setLabelId(issueID);
     clearBuffer();
 
-    const totalcinciprocente = Math.round(+props.order.order.total / 20 + Number.EPSILON) + Math.round(+props.order.order.total);
-    const totalzeceprocente =  Math.round(+props.order.order.total / 10 + Number.EPSILON) + Math.round(+props.order.order.total);
-    const totalcinspeprocente = Math.round(+props.order.order.total / 100 * 15 + Number.EPSILON) + Math.round(+props.order.order.total);
+   
 
     if (_inch == 2) {
       // 2inch sample
@@ -65,7 +63,7 @@ const Print = (props) => {
       let y = 100;
 
 	  drawDeviceFont(
-        "Data si ora:" + props.order.order.createdAt.split("T")[0] +  "   "  + new Date(new Date().getTime()).toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit', hour12: true }),
+        "Data si ora:" + new Date(new Date().getTime()).toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit', hour12: true }),
         0,
         y,
         "0",
@@ -131,7 +129,7 @@ const Print = (props) => {
       y = y + 25;
 
       drawDeviceFont(
-        "Total: " +  Math.round(+props.order.order.total + Number.EPSILON)+ " RON",
+        "Total: " + + " RON",
         0,
         y,
         "0",
@@ -148,10 +146,9 @@ const Print = (props) => {
       drawDeviceFont(
         "[] bacsis 5 % " +
           "(" +
-          Math.round(+props.order.order.total / 20 + Number.EPSILON) +
+         
           ")" +
-          "  RON TOTAL: " +
-          totalcinciprocente,
+          "  RON TOTAL: " ,
         0,
         y,
         "0",
@@ -167,10 +164,9 @@ const Print = (props) => {
       drawDeviceFont(
         "[] bacsis 10 % " +
           "(" +
-          Math.round(+props.order.order.total / 10 + Number.EPSILON) +
+          
           ")" +
-          " RON TOTAL: " +
-          totalzeceprocente,
+          " RON TOTAL: ",
         0,
         y,
         "0",
@@ -185,10 +181,9 @@ const Print = (props) => {
       drawDeviceFont(
         "[] bacsis 15 % " +
           "(" +
-          Math.round((+props.order.order.total / 100) * 15 + Number.EPSILON) +
+       
           ")" +
-          " RON TOTAL: " +
-           +totalcinspeprocente,
+          " RON TOTAL: ",
         0,
         y,
         "0",
@@ -291,6 +286,8 @@ const Print = (props) => {
     requestPrint("Printer1", strSubmit, viewResult);
   };
 
+  console.log("print food");
+
   return (
     <React.Fragment>
       <a
@@ -299,7 +296,7 @@ const Print = (props) => {
           backgroundColor: "yellowgreen",
           color: "white",
           textDecoration: "none",
-          padding: 20 + "px",
+          padding: 15 + "px",
           borderRadius: 5 + "px",
         }}
         id="print_bt"
@@ -312,4 +309,4 @@ const Print = (props) => {
   );
 };
 
-export default Print;
+export default PrintFood;

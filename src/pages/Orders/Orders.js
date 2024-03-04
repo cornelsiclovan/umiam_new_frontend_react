@@ -4,15 +4,15 @@ import { connect } from "react-redux";
 
 
 import "./Places.css";
-import TableList from "../../components/Tables/TableList";
+import OrderList from "../../components/Orders/OrderList";
 
-class Tables extends Component {
+class Orders extends Component {
  
  
 
   render() {
     return (
-      <TableList />
+      <OrderList />
     );
   }
 }
@@ -24,4 +24,4 @@ export default connect(
   {
 
   }
-)(Tables);
+)(Orders);

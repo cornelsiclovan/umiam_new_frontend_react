@@ -23,9 +23,9 @@ const navigationItems = (props) => [
       </li> 
     )),
     props.isAuth && (
-        <li className="navigation-item" key="tables">
-            <NavLink to="/places/1/tables">
-                Tables
+        <li className="navigation-item" key="orders">
+            <NavLink to="/places/1/orders">
+                Vanzari
             </NavLink>
         </li>
     ),
