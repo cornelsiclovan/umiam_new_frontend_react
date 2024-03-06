@@ -102,12 +102,9 @@ const PrintFood = (props) => {
           completeString = " ".repeat(16 - element.title.length)
         }
         const textString =
-          element.title.substring(0, 20) + completeString + "    " +
-          element.price + " x " +
-          element.cartItem.quantity +
-          "  " +
-          Math.round( element.price * element.cartItem.quantity + Number.EPSILON) +
-          " RON";
+          element.title.substring(0, 30) + completeString + " x " +
+          element.cartItem.quantity 
+        
         drawDeviceFont(textString, 0, y, "0", 1, 2, 0, 0, 0, 0);
 
 
