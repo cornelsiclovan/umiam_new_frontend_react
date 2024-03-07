@@ -8,24 +8,24 @@ class OrderList extends Component {
   componentDidMount() {
     this.props.getOrders(this.props.token);
   }
+  
 
   render() {
-    const { orders } = this.props;
-    console.log(orders);
-
+    const { orders, orderTotals } = this.props;
     return (
       <table>
         <thead>
           <tr>
-            <th>Nr. crt.</th><th>data si ora</th> <th>total</th> <th>masa</th>
+            <th>data si ora</th> <th>total</th>
           </tr>
         </thead>
         {orders &&
-          orders.map((order) => {
+          orderTotals.map((order) => {
+            
             return (
               <tr>
                 {" "}
-                <td>{order.id}</td><td>{order.createdAt}</td> <td>{order.total}</td> <td>{order.table_id}</td>
+                <td>{order.data}</td> <td>{order.total}</td> 
               </tr>
             );
           })}
@@ -38,6 +38,7 @@ export default connect(
   (state) => ({
     token: state.auth.token,
     orders: state.order.orders,
+    orderTotals: state.order.orderTotals
   }),
   {
     getOrders,
