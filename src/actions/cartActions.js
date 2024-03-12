@@ -3,10 +3,13 @@ import {
   CLEAR_CART,
   ERROR,
   GET_CART,
+  GET_CARTS,
   REMOVE_FROM_CART,
 } from "../types";
 
 export const getCart = (token, tableId) => async (dispatch) => {
+
+  console.log("getCart", tableId);
   try {
     const res = await fetch(`http://localhost:8080/cart?tableId=${tableId}`, {
       headers: {
@@ -25,7 +28,11 @@ export const getCart = (token, tableId) => async (dispatch) => {
       payload: data,
     });
 
+
+
     localStorage.setItem("cartItems", JSON.stringify(data.productsInCart));
+  
+    
   } catch (error) {
     dispatch({
       type: ERROR,
@@ -33,6 +40,36 @@ export const getCart = (token, tableId) => async (dispatch) => {
     });
   }
 };
+
+export const getCarts = (token) => async (dispatch) => {
+  try {
+    const res = await fetch(`http://localhost:8080/carts`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (res.status !== 200) {
+      throw new Error("No cart available");
+    }
+
+    const data = await res.json();
+
+    
+
+    dispatch({
+      type: GET_CARTS,
+      payload: data,
+    });
+
+  
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: "Cannot get cart, please retry",
+    });
+  }
+}
 
 export const addToCart =
   (product, token, tableId, fishWeight) => async (dispatch, getState) => {
@@ -69,10 +106,14 @@ export const addToCart =
 
       const data = await res.json();
 
+      dispatch(getCarts(token));
+
       dispatch({
         type: ADD_TO_CART,
         payload: data.productsInCart,
       });
+
+     
     } catch (error) {
       dispatch({
         type: ERROR,
@@ -121,10 +162,13 @@ export const removeFromCart =
 
       const data = await res.json();
 
+      dispatch(getCarts(token));
+
       dispatch({
         type: REMOVE_FROM_CART,
         payload: { cartItems },
       });
+
     } catch (error) {
       dispatch({
         type: ERROR,
@@ -135,8 +179,10 @@ export const removeFromCart =
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   };
 
-export const clearCart = () => (dispatch) => {
+export const clearCart = (token) => (dispatch) => {
   localStorage.removeItem("cartItems");
+
+  dispatch(getCarts(token));
   dispatch({
     type: CLEAR_CART,
   });

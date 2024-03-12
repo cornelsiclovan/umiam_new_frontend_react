@@ -16,6 +16,7 @@ export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const CREATE_ORDER = "CREATE_ORDER";
 export const CLEAR_ORDER = "CLEAR_ORDER";
 export const CLEAR_CART = "CLEAR_CART";
+export const GET_CARTS = "GET_CARTS"
 
 // Products
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";

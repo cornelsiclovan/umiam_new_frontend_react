@@ -57,7 +57,7 @@ class Cart extends Component {
 
   closeModal = () => {
     this.props.clearOrder();
-    this.props.clearCart();
+    this.props.clearCart(this.props.token);
     this.state.showCheckout = false;
   };
 

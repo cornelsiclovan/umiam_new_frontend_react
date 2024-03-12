@@ -135,7 +135,7 @@ const Print = (props) => {
         0,
         y,
         "0",
-        1,
+        2,
         2,
         0,
         0,
@@ -149,9 +149,7 @@ const Print = (props) => {
         "[] bacsis 5 % " +
           "(" +
           Math.round(+props.order.order.total / 20 + Number.EPSILON) +
-          ")" +
-          "  RON TOTAL: " +
-          totalcinciprocente,
+          ")",
         0,
         y,
         "0",
@@ -168,9 +166,7 @@ const Print = (props) => {
         "[] bacsis 10 % " +
           "(" +
           Math.round(+props.order.order.total / 10 + Number.EPSILON) +
-          ")" +
-          " RON TOTAL: " +
-          totalzeceprocente,
+          ")",
         0,
         y,
         "0",
@@ -186,9 +182,7 @@ const Print = (props) => {
         "[] bacsis 15 % " +
           "(" +
           Math.round((+props.order.order.total / 100) * 15 + Number.EPSILON) +
-          ")" +
-          " RON TOTAL: " +
-           +totalcinspeprocente,
+          ")",
         0,
         y,
         "0",

@@ -4,7 +4,7 @@ import Fade from "react-reveal/Fade";
 import Modal from "react-modal";
 import { Zoom } from "react-reveal";
 import { fetchProducts } from "../../actions/productActions";
-import { addToCart, getCart } from "../../actions/cartActions";
+import { addToCart, getCart, getCarts } from "../../actions/cartActions";
 import { connect } from "react-redux";
 import { getCategories, getTypes } from "../../actions/ownerActions";
 import { getPlace } from "../../actions/ownerActions";
@@ -30,8 +30,10 @@ class Products extends Component {
     this.props.getCategories(this.props.token);
     this.props.getTypes(this.props.token, placeId);
     this.props.getPlace(this.props.token, placeId);
-    
+    this.props.getCarts(this.props.token);
   }
+
+
 
   openModal = (product) => {
     console.log(product);
@@ -44,51 +46,76 @@ class Products extends Component {
 
   render() {
     const { product } = this.state;
-    const { place } = this.props;
+    const { place, carts } = this.props;
+
+    console.log(carts);
 
     let tableNumberArray = [];
+    let ocuppationArray = [];
 
     if (place && place.tableNumber > 0) {
       for (let i = 0; i < place.tableNumber; i++) {
         tableNumberArray.push(i + 1);
+        for (let j = 0; j < carts.length; j++) {
+          if (i + 1 === +carts[j].tableId) {
+            ocuppationArray.push(carts[j].empty);
+          }
+        }
       }
     }
 
+    console.log(ocuppationArray);
+
     return (
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <ul style={{ listStyle: "none", columnCount: "3"}}>
+        <ul style={{ listStyle: "none", columnCount: "3" }}>
           {tableNumberArray &&
             tableNumberArray.map((number) => (
               <li>
-                {this.state.tableClicked === number && <button
-                  style={{ fontSize: "20px", padding: "5px", backgroundColor: "#fab83f", minWidth: "45px", marginBottom: "3px", flexWrap: "wrap"}}
-                  
-                  
-                  onClick={() => {
-                    this.props.getCart(this.props.token, number);
-                    window.location.href =`#${number}`;
-                  }}
-                  // onClick={() => {
-                  //   window.location.href = `../1/${number}`;
-                  // }}
-                >
-                  {number}
-                </button>}
-                {this.state.tableClicked !== number && <button
-                  style={{ fontSize: "20px", padding: "5px", maxWidth: "45px", minWidth: "45px", marginBottom: "3px"}}
-                  
-                  
-                  onClick={() => {
-                    this.props.getCart(this.props.token, number);
-                    this.setState({...this.state, tableClicked: number})
-                    window.location.href =`#${number}`;
-                  }}
-                  // onClick={() => {
-                  //   window.location.href = `../1/${number}`;
-                  // }}
-                >
-                  {number}
-                </button>}
+                {this.state.tableClicked === number && (
+                  <button
+                    style={{
+                      fontSize: "20px",
+                      padding: "5px",
+                      backgroundColor: "#fab83f",
+                      minWidth: "45px",
+                      marginBottom: "3px",
+                      flexWrap: "wrap",
+                    }}
+                    onClick={() => {
+                      this.props.getCart(this.props.token, number);
+                      window.location.href = `#${number}`;
+                    }}
+                    // onClick={() => {
+                    //   window.location.href = `../1/${number}`;
+                    // }}
+                  >
+                    {number}
+                  </button>
+                )}
+                {this.state.tableClicked !== number && (
+                  <button
+                    style={{
+                      fontSize: "20px",
+                      padding: "5px",
+                      maxWidth: "45px",
+                      minWidth: "45px",
+                      marginBottom: "3px",
+                      backgroundColor: ocuppationArray[number-1]=== false ? "red" : "blue",
+                      color: "white"
+                    }}
+                    onClick={() => {
+                      this.props.getCart(this.props.token, number);
+                      this.setState({ ...this.state, tableClicked: number });
+                      window.location.href = `#${number}`;
+                    }}
+                    // onClick={() => {
+                    //   window.location.href = `../1/${number}`;
+                    // }}
+                  >
+                    {number}
+                  </button>
+                )}
               </li>
             ))}
         </ul>
@@ -107,17 +134,16 @@ class Products extends Component {
                   }}
                 >
                   <div className="product">
-                    
-                      {/* <img
+                    {/* <img
                         style={{ maxHeight: "5rem" }}
                         src={`http://localhost:8080/${product.imageUrl}`}
                         alt={product.title}
                       /> */}
-                      <p>
-                        <b>{product.title}</b>{" "}
-                        {product.price && formatCurrency(+product.price)}
-                      </p>
-                   
+                    <p>
+                      <b>{product.title}</b>{" "}
+                      {product.price && formatCurrency(+product.price)}
+                    </p>
+
                     {product.title === "Pastrav" && (
                       <input
                         type="number"
@@ -223,6 +249,7 @@ export default connect(
     products: state.products.filteredItems,
     token: state.auth.token,
     place: state.places.place,
+    carts: state.cart.carts,
   }),
   {
     fetchProducts,
@@ -230,6 +257,7 @@ export default connect(
     getCategories,
     getTypes,
     getCart,
+    getCarts,
     getPlace,
   }
 )(Products);
