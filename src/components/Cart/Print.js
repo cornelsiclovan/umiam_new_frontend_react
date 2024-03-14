@@ -21,8 +21,6 @@ const Print = (props) => {
   let rotation = 3;
   let issueID = 1;
 
-
-
   const changeLabelInch = () => {
     _inch = 2;
   };
@@ -37,16 +35,21 @@ const Print = (props) => {
     setLabelId(issueID);
     clearBuffer();
 
-    const totalcinciprocente = Math.round(+props.order.order.total / 20 + Number.EPSILON) + Math.round(+props.order.order.total);
-    const totalzeceprocente =  Math.round(+props.order.order.total / 10 + Number.EPSILON) + Math.round(+props.order.order.total);
-    const totalcinspeprocente = Math.round(+props.order.order.total / 100 * 15 + Number.EPSILON) + Math.round(+props.order.order.total);
+    const totalcinciprocente =
+      Math.round(+props.order.order.total / 20 + Number.EPSILON) +
+      Math.round(+props.order.order.total);
+    const totalzeceprocente =
+      Math.round(+props.order.order.total / 10 + Number.EPSILON) +
+      Math.round(+props.order.order.total);
+    const totalcinspeprocente =
+      Math.round((+props.order.order.total / 100) * 15 + Number.EPSILON) +
+      Math.round(+props.order.order.total);
 
     if (_inch == 2) {
       // 2inch sample
       setWidth(380);
 
       let receiptLength = 600 + 38 * props.cartItems.length;
-
 
       setLength(receiptLength, 0, "C", 0);
       //   drawDeviceFont(
@@ -64,8 +67,15 @@ const Print = (props) => {
 
       let y = 100;
 
-	  drawDeviceFont(
-        "Data si ora:" + props.order.order.createdAt.split("T")[0] +  "   "  + new Date(new Date().getTime()).toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit', hour12: true }),
+      drawDeviceFont(
+        "Data si ora:" +
+          props.order.order.createdAt.split("T")[0] +
+          "   " +
+          new Date(new Date().getTime()).toLocaleTimeString("ro-RO", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+          }),
         0,
         y,
         "0",
@@ -77,7 +87,23 @@ const Print = (props) => {
         0
       );
 
-	  y = y + 50
+      y = y + 35;
+
+      drawDeviceFont("S.C. YUGOPLENAT S.R.L.", 0, y, "0", 1, 2, 0, 0, 0, 0);
+
+      y = y + 35;
+
+      drawDeviceFont("PIATA UNIRII, NR.4, SAD 3", 0, y, "0", 1, 2, 0, 0, 0, 0);
+
+      y = y + 35;
+
+      drawDeviceFont("CUI RO27883582", 0, y, "0", 1, 2, 0, 0, 0, 0);
+
+      y = y + 35;
+
+      drawDeviceFont("NOTA DE PLATA", 0, y, "0", 1, 2, 0, 0, 0, 0);
+
+      y = y + 35;
 
       drawDeviceFont(
         "---------------------------------------",
@@ -92,26 +118,32 @@ const Print = (props) => {
         0
       );
 
-       y = y + 30;
-     
+      y = y + 30;
 
       props.cartItems.forEach((element) => {
         let completeString = "";
-        if(element.title.length < 20) {
-           completeString = " ".repeat(20 - element.title.length);
+        if (element.title.length < 20) {
+          completeString = " ".repeat(20 - element.title.length);
         }
-        if(element.title.length < 20 && (element.title === "Pastrav" || element.title === "Somon")) {
-          completeString = " ".repeat(16 - element.title.length)
+        if (
+          element.title.length < 20 &&
+          (element.title === "Pastrav" || element.title === "Somon")
+        ) {
+          completeString = " ".repeat(16 - element.title.length);
         }
         const textString =
-          element.title.substring(0, 20) + completeString + "    " +
-          element.price + " x " +
+          element.title.substring(0, 20) +
+          completeString +
+          "    " +
+          element.price +
+          " x " +
           element.cartItem.quantity +
           "  " +
-          Math.round( element.price * element.cartItem.quantity + Number.EPSILON) +
+          Math.round(
+            element.price * element.cartItem.quantity + Number.EPSILON
+          ) +
           " RON";
         drawDeviceFont(textString, 0, y, "0", 1, 2, 0, 0, 0, 0);
-
 
         y = y + 30;
       });
@@ -131,7 +163,9 @@ const Print = (props) => {
       y = y + 25;
 
       drawDeviceFont(
-        "Total: " +  Math.round(+props.order.order.total + Number.EPSILON)+ " RON",
+        "Total: " +
+          Math.round(+props.order.order.total + Number.EPSILON) +
+          " RON",
         0,
         y,
         "0",
