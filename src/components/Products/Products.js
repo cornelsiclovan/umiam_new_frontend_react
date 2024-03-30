@@ -19,6 +19,8 @@ class Products extends Component {
       product: null,
       pastravWeight: 1,
       somonWeight: 1,
+      purcelusWeight: 1,
+      mielPrajit: 1,
       tableClicked: 1
     };
   }
@@ -164,6 +166,27 @@ class Products extends Component {
                         }
                       />
                     )}
+                    {product.title === "Purcelus prajit" && (
+                      <input
+                        type="number"
+                        style={{ width: "100px", height: "10px" }}
+                        value={this.state.purcelusWeight}
+                        onChange={(event) =>
+                          this.setState({ purcelusWeight: event.target.value })
+                        }
+                      />
+                    )}
+                    {product.title === "Miel prajit" && (
+                      <input
+                        type="number"
+                        style={{ width: "100px", height: "10px" }}
+                        value={this.state.mielPrajit}
+                        onChange={(event) =>
+                          this.setState({ mielPrajit: event.target.value })
+                        }
+                      />
+                    )}
+
                     <div className="product-price">
                       <button
                         onClick={() => {
@@ -180,6 +203,20 @@ class Products extends Component {
                               this.props.token,
                               this.state.tableClicked,
                               this.state.somonWeight
+                            );
+                          } else if (product.title === "Purcelus prajit") {
+                            this.props.addToCart(
+                              product,
+                              this.props.token,
+                              this.state.tableClicked,
+                              this.state.purcelusWeight
+                            );
+                          } else if (product.title === "Miel prajit") {
+                            this.props.addToCart(
+                              product,
+                              this.props.token,
+                              this.state.tableClicked,
+                              this.state.mielPrajit
                             );
                           } else {
                             this.props.addToCart(

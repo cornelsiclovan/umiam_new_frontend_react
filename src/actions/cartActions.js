@@ -129,7 +129,7 @@ export const removeFromCart =
     let cartItems;
     let res;
 
-    if (product.id === 111 || product.id === 112) {
+    if (product.id === 111 || product.id === 112 || product.id === 103 || product.id === 104) {
       cartItems = getState()
         .cart.cartItems.slice()
         .filter((item) => item.cartItem.id !== product.cartItem.id);
