@@ -23,13 +23,6 @@ const navigationItems = (props) => [
       </li> 
     )),
     props.isAuth && (
-        <li className="navigation-item" key="orders">
-            <NavLink to="/places/1/orders">
-                Vanzari
-            </NavLink>
-        </li>
-    ),
-    props.isAuth && (
         <li className="navigation-item" key="logout">
             <button onClick={props.onLogout}>Logout</button>
         </li>
